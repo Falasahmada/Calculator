@@ -1,112 +1,106 @@
-let realValue = 0
-let count = 0
-let key
+let value = '0'
+let number = document.querySelector('section')
 const buttons = document.querySelectorAll('button')
 
-
-
-
-buttons.forEach((button) => {
-    button.addEventListener('mouseleave', () => (
-        button.style.transition = '200ms'
-    ))
-})
-const refresh = () => {
-    document.querySelector('.value').innerHTML = realValue
-}
-const change = (x) => {
-    if (realValue == 0) {
-        realValue = ''
-        document.querySelector('.value').innerHTML = realValue
+const add = (n) => {
+    let length = value.length
+    if (value == 0) {
+        if (typeof(n) === 'number') {
+            value = ''
+            value = String(n)
+            return number.innerHTML = value
+        }
     }
-    realValue = realValue + x
-    key = x
-    refresh()
+    value = value + n
+    number.innerHTML = value
 }
 
-const add = (x) => {
-    if (typeof key === 'string') {
-        realValue = String(realValue).slice(0, realValue.length - 1)
-        realValue = realValue += x
-        key = x
-        refresh()
+
+const operator = (n) => {
+    let lastIndex = value.length - 1
+    if (isNaN(Number(value[lastIndex])) === true) {
+        if (lastIndex > 0) {
+            value = String(value).slice(0, value.length - 1)
+        }
+        value = value + n
+        number.innerHTML = value 
+        console.log('atas')
     } else {
-        realValue = realValue += x
-        key = x
-        refresh()
+        value = value + n
+        number.innerHTML = value
+        console.log('bawah')
     }
 }
+
 const calculate = (fn) => {
     return Function('return ' + fn)()
 }
 buttons[0].addEventListener('click',() => {
-    realValue = 0
-    refresh()
+    value = 0
+    number.innerHTML = 0
 })
 buttons[1].addEventListener('click',() => {
-    if (realValue <= 9) {
-        realValue = '0'
-        console.log(realValue)
+    if (value <= 9) {
+        value = 0
 
     } else {
-        realValue = String(realValue).slice(0, realValue.length - 1)
-        console.log(realValue)
+        value = String(value).slice(0, value.length - 1)
     }
-    refresh()
+    number.innerHTML = value
     
 })
 buttons[2].addEventListener('click',() => {
-    add('%')
+    operator('%')
 })
 buttons[3].addEventListener('click',() => {
-    add('/')
+    operator('/')
 })
 buttons[4].addEventListener('click',() => {
-    change(7)
+    add(7)
 })
 buttons[5].addEventListener('click',() => {
-    change(8)
+    add(8)
 })
 buttons[6].addEventListener('click',() => {
-    change(9)
+    add(9)
 })
 buttons[7].addEventListener('click',() => {
-    add('*')
+    operator('*')
 })
 buttons[8].addEventListener('click',() => {
-    change(4)
+    add(4)
 })
 buttons[9].addEventListener('click',() => {
-    change(5)
+    add(5)
 })
 buttons[10].addEventListener('click',() => {
-    change(6)
+    add(6)
 })
 buttons[11].addEventListener('click',() => {
-    add('-')
+    operator('-')
 })
 buttons[12].addEventListener('click',() => {
-    change(1)
+    add(1)
 })
 buttons[13].addEventListener('click',() => {
-    change(2)
+    add(2)
 })
 buttons[14].addEventListener('click',() => {
-    change(3)
+    add(3)
 })
 buttons[15].addEventListener('click',() => {
-    add('+')
+    operator('+')
 })
 buttons[16].addEventListener('click',() => {
-    
+    add()
 })
 buttons[17].addEventListener('click',() => {
-    change(0)
+    add(0)
 })
 buttons[18].addEventListener('click',() => {
-    change('.')
+    operator('.')
 })
 buttons[19].addEventListener('click',() => {
-    realValue = calculate(realValue)
-    refresh()
+    value = calculate(value)
+    number.innerHTML = value
 })
